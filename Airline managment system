@@ -1,0 +1,3 @@
+#features
+Developed an application for structuring flight schedule, passenger bookings and digital ticket geneartion
+Implemented built-in file storage streams (File I/O) to ensure reliable, persistent dataretention acrossapplication restarts
