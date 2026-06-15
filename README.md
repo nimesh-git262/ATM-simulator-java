@@ -1,4 +1,4 @@
-# ATM-simulator-java
+# java beginner programmer
 ## AboutMe
 I am a beginner java programmer passionate about building project using java language 
 ## Tech 
