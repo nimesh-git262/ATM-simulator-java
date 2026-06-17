@@ -3,58 +3,47 @@ import java.util.Scanner;
 public class Main{
     public static void main(String []args){
         Scanner sc = new Scanner(System.in);
-        Library library = new Library();
+        SuperMarket market = new SuperMarket();
 
         while(true){
-            System.out.println("===Library Managment System===");
-            System.out.println("1. Add Book");
-            System.out.println("2. View Book");
-            System.out.println("3. Search Book");
-            System.out.println("4. Issue Book");
-            System.out.println("5. Return Book");
-            System.out.println("6. EXIT");
-            
+            System.out.println("====SUPER MARKET BILLING SYSTEM====");
+            System.out.println("1. Add Product");
+            System.out.println("2. View Product");
+            System.out.println("3. Generate Bill");
+            System.out.println("4. Exit");
+
             System.out.println("Enter Choice");
             int Choice = sc.nextInt();
 
-            if(Choice==1){
-                System.out.println("Enter Book ID");
+            sc.nextLine();
+
+            if(Choice==1){ 
+                System.out.println("Enter Product Id: ");
                 int id = sc.nextInt();
                 sc.nextLine();
 
-                System.out.println("Enter Tittle");
-                String tittle = sc.nextLine();
+                System.out.println("Enter Product Name: ");
+                String name = sc.nextLine();
 
-                System.out.println("Enter Author");
-                String author = sc.nextLine();
+                System.out.println("Enter Price: ");
+                double price = sc.nextDouble();
 
-                library.addBook(new Book(id, tittle, author, false));
+                System.out.println("Enter Quantity: ");
+                int quantity = sc.nextInt();
+
+                Product product = new Product(id, name, price, quantity);
+                market.addProduct(product);
             }else if(Choice==2){
-                library.viewBooks();
+                market.viewProduct();
             }else if(Choice==3){
-                System.out.println("Enter Book ID");
-                    int id = sc.nextInt();
-
-                    Book book = library.searchBook(id);
-                if(book==null){
-                    System.out.println(book);
-                }else{
-                    System.out.println("Book not found");
-                }    
-            }else if(Choice==4){
-                System.out.println("Enter Book ID");
-                int id = sc.nextInt();
-
-                library.issueBook(id);
-            }else if(Choice==5){
-                System.out.println("Enter Book ID");
-                int id = sc.nextInt();
-
-                library.returnBook(id);
+                market.generateBill();
+            }else if ((Choice==4)) {
+                System.out.println("Thnal You");
+                sc.close();
+                return;
             }else{
-                System.out.println("Invalid Choice");
+                System.out.println("invalid choice");
             }
         }
     }
-    
 }
