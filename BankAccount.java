@@ -1,64 +1,67 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class BankAccount{
-    private String accountNumber;
+    private int accountNumber;
     private String accountHolderName;
-    private int pin;
     private double balance;
-    private List<Transaction> transactions;
+    private ArrayList<String> transactions = new ArrayList<>();
 
-    public BankAccount(String accountNumber, String accountHolderName, int pin, double initialbalance){
+    public BankAccount(int accountNumber, String accountHolderName, double balance){
         this.accountNumber = accountNumber;
         this.accountHolderName = accountHolderName;
-        this.pin = pin;
-        this.balance = initialbalance;
-        this.transactions = new ArrayList<>();
+        this.balance = balance;
+        transactions.add("Account Created with Balance: " + balance);
+    }
+    public int getAccountNumber(){
+        return accountNumber;
+    }
+    public String getAccontHolderName(){
+        return accountHolderName;
     }
     public double getBalance(){
         return balance;
     }
-    public boolean validatePin(int inputPin){
-        return this.pin == inputPin; 
-    }
-    public void displayAccountInfo(){
-        System.out.println("Account Holder: " + accountHolderName);
-        System.out.println("Account Number: " + accountNumber);
-        System.out.println("Current Balance: " + balance);
-    }
+
     public void deposit(double amount){
-        if(amount>0){
-            balance += amount;
-            transactions.add(new Transaction("Deposit", amount, balance));
-            System.out.println("Deposit Successfully" + amount + "added");
-        }else{
-            System.out.println("Invalid deposit");
-        }
+        balance += amount;
+        transactions.add("Deposited: " + amount);
+        System.out.println(amount + "deposited successfully");
     }
+
     public void withdraw(double amount){
-        if(amount > 0 && amount <= balance){
+        if(balance <= amount){
             balance -= amount;
-            transactions.add(new Transaction("Withdraw", amount, balance));
-            System.out.println("Withdraw Successfully" + amount + "deducted");
-        }else if(amount > balance){
-            System.out.println("No transactions found");
+            transactions.add("Withdraw: " + amount);
+            System.out.println(amount + "withdraw successfully");
         }else{
-            System.out.println("Invalid withdraw");
+            System.out.println("Insufficent balance");
         }
     }
-    public void checkBalance(){
-        System.out.printf("Current Balance is : %.2fn", balance);
-    }
+
     public void showTransactions(){
-        if(transactions.isEmpty()){
-            System.out.println("No transactions found");
-        }else{
-            for (Transaction t : transactions){
-                System.out.println(t);
-            }
-        }
+        System.out.println("Transaction History: ");
+        for(String transaction : transactions){
+            System.out.println(transaction);
+        }    
     }
-    public String getAccountHolderName(){
-        return accountHolderName;
+
+    public void displayAccount(){
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Holder: " + accountHolderName);
+        System.out.println("Balance: " + balance);
+    }
+
+    public void transfer(BankAccount receiver, double amount){
+        if(amount <= balance){
+            balance -= amount;
+            receiver.balance += amount;
+
+            transactions.add("Transferred " + amount + "to Account " + receiver.accountNumber);
+
+            receiver.transactions.add("Received " + amount + "from Account " + accountNumber);
+            System.out.println("Transfer successfull");
+        }else{
+            System.out.println("Insufficent balance");
+        }
     }
 }
