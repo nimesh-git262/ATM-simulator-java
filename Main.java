@@ -3,66 +3,58 @@ import java.util.Scanner;
 public class Main{
     public static void main(String []args){
         Scanner sc = new Scanner(System.in);
-        AirlineSystem system = new AirlineSystem();
+        Library library = new Library();
 
-        int choice;
-        do{
-            System.out.println("====AIRLINE MANAGMENT SYSTEM");
-            System.out.println("1. View Flight");
-            System.out.println("2. Search Flight");
-            System.out.println("3. Cancel Flight");
-            System.out.println("4. View Booking");
-            System.out.println("EXIT");
-
-            System.out.println("Enter your choice");
-            choice = sc.nextInt();
-            sc.nextLine();
+        while(true){
+            System.out.println("===Library Managment System===");
+            System.out.println("1. Add Book");
+            System.out.println("2. View Book");
+            System.out.println("3. Search Book");
+            System.out.println("4. Issue Book");
+            System.out.println("5. Return Book");
+            System.out.println("6. EXIT");
             
-            switch(choice){
-                case 1:
-                    system.viewFlights();
-                break;
-                case 2:
-                    System.out.println("Enter Flight Number: ");
-                    String flightNo = sc.nextLine();
-                    
-                    Flight flight = system.searchFlight(flightNo);
-                    if(flight != null){
-                        System.out.println(flight);
-                    }else{
-                        System.out.println("flight not found");
-                    }
-                break;
-                case 3:
-                    System.out.println("Enter Passenger Name: ");
-                    String name = sc.nextLine();
-                    
-                    System.out.println("Enter Passport Number");
-                    String passport = sc.nextLine();
+            System.out.println("Enter Choice");
+            int Choice = sc.nextInt();
 
-                    System.out.println("Enter flight number");
-                    String flightNumber = sc.nextLine();
+            if(Choice==1){
+                System.out.println("Enter Book ID");
+                int id = sc.nextInt();
+                sc.nextLine();
 
-                    system.bookTicker(name, passport, flightNumber);
-                break;
-                case 4:
-                    system.viewBookings();    
-                break;    
-                case 5:
-                    System.out.println("Enter Passport Number: ");
-                    String passengerNumber = sc.nextLine();
+                System.out.println("Enter Tittle");
+                String tittle = sc.nextLine();
 
-                    system.cancelBooking(passengerNumber);
-                break;
-                case 6:
-                    System.out.println("Thanks for using our AIRLINE MANAGMENT SYSTEM"); 
-                break;
-                default:
-                    System.out.println("Invalid Choice");
+                System.out.println("Enter Author");
+                String author = sc.nextLine();
+
+                library.addBook(new Book(id, tittle, author, false));
+            }else if(Choice==2){
+                library.viewBooks();
+            }else if(Choice==3){
+                System.out.println("Enter Book ID");
+                    int id = sc.nextInt();
+
+                    Book book = library.searchBook(id);
+                if(book==null){
+                    System.out.println(book);
+                }else{
+                    System.out.println("Book not found");
+                }    
+            }else if(Choice==4){
+                System.out.println("Enter Book ID");
+                int id = sc.nextInt();
+
+                library.issueBook(id);
+            }else if(Choice==5){
+                System.out.println("Enter Book ID");
+                int id = sc.nextInt();
+
+                library.returnBook(id);
+            }else{
+                System.out.println("Invalid Choice");
             }
-
-        }while (choice != 6); {
-            sc.close();
         }
     }
+    
 }
